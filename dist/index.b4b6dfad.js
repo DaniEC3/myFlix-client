@@ -585,6 +585,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"d8Dch":[function(require,module,exports,__globalThis) {
+// import React from 'react';
 var _client = require("react-dom/client");
 // Import statement to indicate that you need to bundle `./index.scss`
 var _indexScss = require("./index.scss");
@@ -594,14 +595,14 @@ const MyFlixApplication = ()=>{
         className: "my-flix",
         __source: {
             fileName: "src/index.jsx",
-            lineNumber: 9,
+            lineNumber: 11,
             columnNumber: 5
         },
         __self: undefined
     }, /*#__PURE__*/ React.createElement("div", {
         __source: {
             fileName: "src/index.jsx",
-            lineNumber: 10,
+            lineNumber: 12,
             columnNumber: 7
         },
         __self: undefined
@@ -614,7 +615,7 @@ const root = (0, _client.createRoot)(container);
 root.render(/*#__PURE__*/ React.createElement(MyFlixApplication, {
     __source: {
         fileName: "src/index.jsx",
-        lineNumber: 20,
+        lineNumber: 22,
         columnNumber: 13
     },
     __self: undefined
