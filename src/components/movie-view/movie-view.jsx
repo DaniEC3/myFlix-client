@@ -1,4 +1,14 @@
-export const MovieView = ({ movie, onBackClick }) => {
+import { MovieCard } from "../movie-card/movie-card";
+export const MovieView = ({ movie, onBackClick, similarMovies, setSelectedMovie }) => {
+  const formattedDate = new Date(movie.year_released).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  console.log(similarMovies)
+
+
   return (
     <div>
       <div>
@@ -9,12 +19,12 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>{movie.name}</span>
       </div>
       <div>
-        <span>Director; </span>
+        <span>Director: </span>
         <span>{movie.director}</span>
       </div>
       <div>
         <span>Year Released: </span>
-        <span>{movie.year_released}</span>
+        <span>{formattedDate}</span>
       </div>
       <div>
         <img src={movie.imagePath} />
@@ -28,6 +38,16 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>{movie.genre}</span>
       </div>
       <button onClick={onBackClick}>Back</button>
+      <div>
+        {similarMovies.map((movie) => (
+          <MovieCard
+          key={movie.id}
+          movie={movie} //Prop
+          onMovieClick={(newSelectedMovie) => 
+          setSelectedMovie(newSelectedMovie)}
+          />
+            ))}
+      </div>
     </div>
   );
 };

@@ -9,28 +9,34 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
-    fetch("https://openlibrary.org/search.json?q=star+wars")
+    fetch("https://movies-my-flix-app-60bc918eee2b.herokuapp.com/movies")
       .then((response) => response.json())
       .then((data) => {
-        const booksFromApi = data.docs.map((doc) => {
+        const moviesFromApi = data.map((mov) => {
           return {
-            id: doc.key,
-            title: doc.title,
-            image:
-`https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`,
-            author: doc.author_name?.[0]
+            id: mov._id,
+            name: mov.name,
+            director: mov.director,
+            year_released: mov.year_released,
+            description: mov.description,
+            genre: mov.genre
           };
         });
 
-        setMovies(booksFromApi);
+        setMovies(moviesFromApi);
       });
   }, []);
 
   if (selectedMovie) {
+
+    const similarMovies = movies.filter((movie) =>
+      movie.genre === selectedMovie.genre);
+
     return (
       <MovieView 
-      movie={selectedMovie}
-      onBackClick={() => setSelectedMovie(null)} 
+      movie={selectedMovie} //prop
+      onBackClick={() => setSelectedMovie(null)}
+      similarMovies = {similarMovies}
       />
     );
   }
@@ -38,14 +44,6 @@ export const MainView = () => {
   if (movies.length === 0) {
     return <div>The list is empty!</div>;
   }
-
-  // return (
-  //   <div>
-  //     {movies.map((movie) => {                               
-  //       <MovieCard movie={movie}/>
-  //     })}
-  //   </div>
-  // );
 
   return (
     <div>
