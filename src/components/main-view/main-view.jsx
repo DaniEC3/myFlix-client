@@ -42,7 +42,6 @@ export const MainView = () => {
     })
       .then((response) => response.json())
       .then((movies) => {
-        console.log(movies);
         const moviesFromApi = movies.map((mov) => {
           return {
             id: mov._id,
