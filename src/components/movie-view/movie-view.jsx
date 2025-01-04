@@ -1,4 +1,6 @@
 import { MovieCard } from "../movie-card/movie-card";
+import {useState} from "react";
+
 export const MovieView = ({ movie, onBackClick, similarMovies, setSelectedMovie }) => {
   const formattedDate = new Date(movie.year_released).toLocaleDateString("en-US", {
     year: "numeric",
@@ -6,8 +8,7 @@ export const MovieView = ({ movie, onBackClick, similarMovies, setSelectedMovie 
     day: "numeric",
   });
 
-  console.log(similarMovies)
-
+  const [currentMovie, setCurrentMovie] = useState(movie);
 
   return (
     <div>

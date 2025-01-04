@@ -37,6 +37,7 @@ export const MainView = () => {
       movie={selectedMovie} //prop
       onBackClick={() => setSelectedMovie(null)}
       similarMovies = {similarMovies}
+      setSelectedMovie={setSelectedMovie}
       />
     );
   }
