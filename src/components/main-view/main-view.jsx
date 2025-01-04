@@ -2,32 +2,36 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
-import { LoginView } from "../login-view/login-view"
+import { LoginView } from "../login-view/login-view";
+import { SignupView } from "../singup-view/signup-view";
 
 export const MainView = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
+  const [user, setUser] = useState(storedUser? storedUser : null);
+  const [token, setToken] = useState(storedToken? storedToken : null);
   const [movies, setMovies] = useState([]);
-  const [user, setUser] = useState(null);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [token, setToken] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState(null)
 
-  useEffect(() => {
-    fetch("https://movies-my-flix-app-60bc918eee2b.herokuapp.com/movies")
-      .then((response) => response.json())
-      .then((data) => {
-        const moviesFromApi = data.map((mov) => {
-          return {
-            id: mov._id,
-            name: mov.name,
-            director: mov.director,
-            year_released: mov.year_released,
-            description: mov.description,
-            genre: mov.genre
-          };
-        });
+  // useEffect(() => {
+  //   fetch("https://movies-my-flix-app-60bc918eee2b.herokuapp.com/movies")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       const moviesFromApi = data.map((mov) => {
+  //         return {
+  //           id: mov._id,
+  //           name: mov.name,
+  //           director: mov.director,
+  //           year_released: mov.year_released,
+  //           description: mov.description,
+  //           genre: mov.genre
+  //         };
+  //       });
 
-        setMovies(moviesFromApi);
-      });
-  }, []);
+  //       setMovies(moviesFromApi);
+  //     });
+  // }, []);
 
   useEffect(() => {
     if (!token) {
@@ -37,18 +41,33 @@ export const MainView = () => {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
+      .then((movies) => {
+        console.log(movies);
+        const moviesFromApi = movies.map((mov) => {
+          return {
+            id: mov._id,
+            name: mov.name,
+            director: mov.director,
+            year_released: mov.year_released,
+            description: mov.description,
+            genre: mov.genre
+          };
+        });
+        setMovies(moviesFromApi);
       });
   }, [token]);
 
   if (!user) {
-    return <LoginView 
-    onLoggedIn={(user, token) => {
-      setUser(user) //Prop
-      setToken(token);
-    }}
-    />
+    return (
+      <>
+        <LoginView onLoggedIn={(user, token) => {
+          setUser(user);
+          setToken(token);
+        }} />
+        or
+        <SignupView />
+      </>
+    );
   }
 
   if (selectedMovie) {
@@ -79,7 +98,7 @@ export const MainView = () => {
         setSelectedMovie(newSelectedMovie)}
        />
       ))}
-      <button onClick={() => { setUser(null); setToken(null;)}}>Logout</button>
+      <button onClick={() => { setUser(null); setToken(null);}}>Logout</button>
     </div>
     
   );
