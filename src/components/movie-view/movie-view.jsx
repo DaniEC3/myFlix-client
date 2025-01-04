@@ -1,5 +1,6 @@
 import { MovieCard } from "../movie-card/movie-card";
 import {useState} from "react";
+import './movie-view.scss';
 
 export const MovieView = ({ movie, onBackClick, similarMovies, setSelectedMovie }) => {
   const formattedDate = new Date(movie.year_released).toLocaleDateString("en-US", {
@@ -37,7 +38,10 @@ export const MovieView = ({ movie, onBackClick, similarMovies, setSelectedMovie 
         <span>genre: </span>
         <span>{movie.genre}</span>
       </div>
-      <button onClick={onBackClick}>Back</button>
+      <button onClick={onBackClick} 
+      className="back-button"
+      style={{ cursor: "pointer" }}
+      >Back</button>
       <div>
         {similarMovies.map((movie) => (
           <MovieCard
