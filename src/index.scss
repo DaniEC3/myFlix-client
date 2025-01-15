@@ -1,8 +1,16 @@
+$body-bg: Black;
+$primary: White;
 
+$custom-colors: (
+  "custom-color": #900
+);
 
+@import '~bootstrap/scss/bootstrap.scss';
 
-$color: steelblue;
-
-.my-flix {
-  color: $color;
+.movieCard {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #6c757d; /* Grey */
+  color: white;
 }
+

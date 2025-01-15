@@ -1,7 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { MainView } from './components/main-view/main-view';
-import "bootstrap/dist/css/bootstrap.min.css";
+import Container from "react-bootstrap/Container";
+
 
 // Import statement to indicate that you need to bundle `./index.scss`
 import "./index.scss";
@@ -10,7 +11,9 @@ import "./index.scss";
 const MyFlixApplication = () => {
   console.log("App is rendering");
   return (
+    <Container>
     <MainView></MainView>
+    </Container>
   );
 };
 

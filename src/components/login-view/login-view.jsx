@@ -49,7 +49,7 @@ export const LoginView = ({onLoggedIn}) => {
     // With Bootstrap
 
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formUsername">
+      <Form.Group controlId="formUsernameSignUp">
         <Form.Label>Username:</Form.Label>
         <Form.Control
           type="text"
@@ -60,7 +60,7 @@ export const LoginView = ({onLoggedIn}) => {
         />
       </Form.Group>
 
-      <Form.Group controlId="formPassword">
+      <Form.Group controlId="formPasswordSignUp">
         <Form.Label>Password:</Form.Label>
         <Form.Control
           type="password"
