@@ -49,7 +49,7 @@ export const LoginView = ({onLoggedIn}) => {
     // With Bootstrap
 
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formUsernameSignUp">
+      <Form.Group className="formGroup"  controlId="formUsernameSignUp">
         <Form.Label>Username:</Form.Label>
         <Form.Control
           type="text"
@@ -60,7 +60,7 @@ export const LoginView = ({onLoggedIn}) => {
         />
       </Form.Group>
 
-      <Form.Group controlId="formPasswordSignUp">
+      <Form.Group className="formGroup" controlId="formPasswordSignUp">
         <Form.Label>Password:</Form.Label>
         <Form.Control
           type="password"
@@ -68,7 +68,7 @@ export const LoginView = ({onLoggedIn}) => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </Form.Group>
+      </Form.Group >
       <Button variant="primary" type="submit">
         Submit
       </Button>

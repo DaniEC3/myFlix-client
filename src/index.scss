@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+
+
 $body-bg: Black;
-$primary: White;
+$primary: #ADFF2F;
 
 $custom-colors: (
   "custom-color": #900
@@ -7,10 +11,147 @@ $custom-colors: (
 
 @import '~bootstrap/scss/bootstrap.scss';
 
+$darker-Green: #6ABD0F;
+$lighter-Green: #CFFF5A;
+$muted-Green: #98CC3D;
+
+
+body {
+  font-family: 'Audiowide', sans-serif;
+}
+
 .movieCard {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #6c757d; /* Grey */
-  color: white;
+  background-color: #ADFF2F;
 }
 
+.movie-info{
+  color: white;
+  margin-bottom: 20px;
+
+}
+
+.card-body {
+  color: black;
+  background-color: black;
+  border: #d6ff97;
+  border-width: thick;
+
+}
+
+.form-label {
+  color: #fbfcfc;
+
+}
+
+.form-control {
+color:white
+
+}
+
+.form-control:focus {
+  color:#d6ff97
+  
+  }
+
+.movie-btn{
+color: #d6ff97;
+
+}
+
+.back-button {
+  padding: 4px 12px 4px 12px;
+  color: whitesmoke;
+  background-color: $muted-Green;
+  border-radius: 4px;
+  margin-top: 15px;
+  
+}
+
+.btn-primary {
+  appearance: button;
+  background-color: $muted-Green;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: $darker-Green;
+  cursor: pointer;
+  display: inline-block;
+  font-family: din-round,sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  margin-bottom: 15px;
+  margin-top: 25px;
+  outline: none;
+  overflow: visible;
+  padding: 13px 16px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.btn-primary:after {
+  background-clip: padding-box;
+  background-color: #CFFF5A;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.btn-primary,
+.btn-primary:focus {
+  user-select: auto;
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+.btn-primary:disabled {
+  cursor: auto;
+}
+
+.btn-primary:active {
+  border-width: 4px 0 0;
+  background: none;
+}
+
+.formGroup {
+  // text-align: center;
+  // align-items: center;
+  font-family: "Audiowide";
+
+}
+
+.or {
+  text-align: center;
+  color: white;
+  margin: 50px 0 50px 0;
+  font-size: 1.4em;
+  font-family: "Audiowide";
+  
+}
+
+.form-label {
+  margin: 20px 0 20px 0;
+
+}
