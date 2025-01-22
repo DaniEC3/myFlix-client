@@ -27293,7 +27293,7 @@ const MainView = ()=>{
                     onLoggedIn: (user)=>setUser(user)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 48,
+                    lineNumber: 47,
                     columnNumber: 11
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27301,18 +27301,18 @@ const MainView = ()=>{
                     children: "OR"
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 49,
+                    lineNumber: 48,
                     columnNumber: 11
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 50,
+                    lineNumber: 49,
                     columnNumber: 11
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 47,
+            lineNumber: 46,
             columnNumber: 9
         }, undefined) : selectedMovie ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
             md: 8,
@@ -27323,18 +27323,21 @@ const MainView = ()=>{
                 setSelectedMovie: setSelectedMovie
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 54,
+                lineNumber: 53,
                 columnNumber: 11
             }, undefined)
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 53,
+            lineNumber: 52,
             columnNumber: 9
         }, undefined) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            children: "The list is empty!"
-        }, void 0, false, {
+            children: [
+                "The list is empty! ",
+                movies
+            ]
+        }, void 0, true, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 62,
+            lineNumber: 61,
             columnNumber: 9
         }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
             children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
@@ -27347,18 +27350,18 @@ const MainView = ()=>{
                         }
                     }, void 0, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 67,
+                        lineNumber: 66,
                         columnNumber: 13
                     }, undefined)
                 }, movie.id, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 66,
+                    lineNumber: 65,
                     columnNumber: 13
                 }, undefined))
         }, void 0, false)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 45,
+        lineNumber: 44,
         columnNumber: 5
     }, undefined);
 };
@@ -31019,7 +31022,9 @@ const LoginView = ({ onLoggedIn })=>{
                 localStorage.setItem("user", JSON.stringify(data.user));
                 localStorage.setItem("token", data.token);
                 onLoggedIn(data.user, data.token);
-            } else alert("No such user");
+                // Reload the page after successful login
+                window.location.reload();
+            } else alert("Username or Password is not correct!! Try again.");
         }).catch((e)=>{
             alert("Something went wrong");
         });
@@ -31037,7 +31042,7 @@ const LoginView = ({ onLoggedIn })=>{
                         children: "Username:"
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 53,
+                        lineNumber: 57,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -31048,13 +31053,13 @@ const LoginView = ({ onLoggedIn })=>{
                         minLength: "5"
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 54,
+                        lineNumber: 58,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 52,
+                lineNumber: 56,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -31065,7 +31070,7 @@ const LoginView = ({ onLoggedIn })=>{
                         children: "Password:"
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 64,
+                        lineNumber: 68,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -31075,13 +31080,13 @@ const LoginView = ({ onLoggedIn })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 65,
+                        lineNumber: 69,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 63,
+                lineNumber: 67,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
@@ -31090,13 +31095,13 @@ const LoginView = ({ onLoggedIn })=>{
                 children: "Submit"
             }, void 0, false, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 72,
+                lineNumber: 76,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/login-view/login-view.jsx",
-        lineNumber: 51,
+        lineNumber: 55,
         columnNumber: 5
     }, undefined));
 };
@@ -31130,21 +31135,34 @@ var _formDefault = parcelHelpers.interopDefault(_form);
 var _s = $RefreshSig$();
 const SignupView = ()=>{
     _s();
-    const [firstname, setFirstName] = (0, _react.useState)("");
-    const [lastname, setLastName] = (0, _react.useState)("");
-    const [username, setUsername] = (0, _react.useState)("");
-    const [password, setPassword] = (0, _react.useState)("");
-    const [email, setEmail] = (0, _react.useState)("");
-    const [birthday, setBirthday] = (0, _react.useState)("");
+    const [formData, setFormData] = (0, _react.useState)({
+        firstname: "",
+        lastname: "",
+        username: "",
+        password: "",
+        email: "",
+        birthday: ""
+    });
+    const [errors, setErrors] = (0, _react.useState)([]);
+    const [isLoading, setIsLoading] = (0, _react.useState)(false);
+    const handleChange = (event)=>{
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
     const handleSubmit = (event)=>{
         event.preventDefault();
+        setIsLoading(true);
+        setErrors([]); // Clear previous errors
         const data = {
-            userName: username,
-            first_Name: firstname,
-            last_Name: lastname,
-            password: password,
-            email: email,
-            birthDay: birthday
+            userName: formData.username,
+            first_Name: formData.firstname,
+            last_Name: formData.lastname,
+            password: formData.password,
+            email: formData.email,
+            birthDay: formData.birthday
         };
         fetch("https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/create", {
             method: "POST",
@@ -31152,31 +31170,30 @@ const SignupView = ()=>{
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then((response)=>{
-            if (response.ok) {
+        }).then((response)=>response.json()).then((responseData)=>{
+            console.log(responseData);
+            if (responseData.errors) // Server-side validation errors
+            setErrors(responseData.errors);
+            else {
                 alert("Signup successful");
                 window.location.reload();
-            } else alert("Signup failed");
+            }
+        }).catch((error)=>{
+            console.error("Error during signup:", error);
+            setErrors([
+                {
+                    msg: "An unexpected error occurred. Please try again."
+                }
+            ]);
+        }).finally(()=>{
+            setIsLoading(false);
         });
     };
-    // .then((data) => {
-    //   console.log("Login response: ", data);
-    //   if (data.userName) { // Locally saving the user and the key
-    //     localStorage.setItem("user", JSON.stringify(data.userName));
-    //     localStorage.setItem("token", data.token);
-    //     onLoggedIn(data.user, data.token); 
-    //   } else {
-    //     alert("No such user");
-    //   }
-    // })
-    // .catch((e) => {
-    //   alert("Something went wrong");
-    // });
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default), {
-        className: "formGroup",
         onSubmit: handleSubmit,
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
+                className: "formGroup",
                 controlId: "formFirstName",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
@@ -31184,23 +31201,33 @@ const SignupView = ()=>{
                         children: "First Name:"
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
-                        lineNumber: 62,
+                        lineNumber: 70,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
                         type: "text",
-                        value: firstname,
-                        onChange: (e)=>setFirstName(e.target.value),
+                        name: "firstname",
+                        value: formData.firstname,
+                        onChange: handleChange,
+                        isInvalid: !!errors.find((e)=>e.param === "first_Name"),
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
-                        lineNumber: 63,
+                        lineNumber: 71,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control.Feedback, {
+                        type: "invalid",
+                        children: errors.find((e)=>e.param === "first_Name")?.msg
+                    }, void 0, false, {
+                        fileName: "src/components/singup-view/signup-view.jsx",
+                        lineNumber: 79,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/singup-view/signup-view.jsx",
-                lineNumber: 61,
+                lineNumber: 69,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -31211,22 +31238,32 @@ const SignupView = ()=>{
                         children: "Last Name:"
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
-                        lineNumber: 72,
+                        lineNumber: 85,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
                         type: "text",
-                        value: lastname,
-                        onChange: (e)=>setLastName(e.target.value)
+                        name: "lastname",
+                        value: formData.lastname,
+                        onChange: handleChange,
+                        isInvalid: !!errors.find((e)=>e.param === "last_Name")
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
-                        lineNumber: 73,
+                        lineNumber: 86,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control.Feedback, {
+                        type: "invalid",
+                        children: errors.find((e)=>e.param === "last_Name")?.msg
+                    }, void 0, false, {
+                        fileName: "src/components/singup-view/signup-view.jsx",
+                        lineNumber: 93,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/singup-view/signup-view.jsx",
-                lineNumber: 71,
+                lineNumber: 84,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -31237,24 +31274,34 @@ const SignupView = ()=>{
                         children: "Username:"
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
-                        lineNumber: 81,
+                        lineNumber: 99,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
                         type: "text",
-                        value: username,
-                        onChange: (e)=>setUsername(e.target.value),
+                        name: "username",
+                        value: formData.username,
+                        onChange: handleChange,
                         required: true,
-                        minLength: "5"
+                        minLength: "5",
+                        isInvalid: !!errors.find((e)=>e.param === "userName")
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
-                        lineNumber: 82,
+                        lineNumber: 100,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control.Feedback, {
+                        type: "invalid",
+                        children: errors.find((e)=>e.param === "userName")?.msg
+                    }, void 0, false, {
+                        fileName: "src/components/singup-view/signup-view.jsx",
+                        lineNumber: 109,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/singup-view/signup-view.jsx",
-                lineNumber: 80,
+                lineNumber: 98,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -31265,24 +31312,34 @@ const SignupView = ()=>{
                         children: "Password:"
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
-                        lineNumber: 92,
+                        lineNumber: 115,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
                         type: "password",
-                        value: password,
-                        onChange: (e)=>setPassword(e.target.value),
+                        name: "password",
+                        value: formData.password,
+                        onChange: handleChange,
                         required: true,
-                        minLength: "8"
+                        minLength: "8",
+                        isInvalid: !!errors.find((e)=>e.param === "password")
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
-                        lineNumber: 93,
+                        lineNumber: 116,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control.Feedback, {
+                        type: "invalid",
+                        children: errors.find((e)=>e.param === "password")?.msg
+                    }, void 0, false, {
+                        fileName: "src/components/singup-view/signup-view.jsx",
+                        lineNumber: 125,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/singup-view/signup-view.jsx",
-                lineNumber: 91,
+                lineNumber: 114,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -31293,23 +31350,33 @@ const SignupView = ()=>{
                         children: "Email:"
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
-                        lineNumber: 103,
+                        lineNumber: 131,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
                         type: "email",
-                        value: email,
-                        onChange: (e)=>setEmail(e.target.value),
+                        name: "email",
+                        value: formData.email,
+                        onChange: handleChange,
+                        isInvalid: !!errors.find((e)=>e.param === "email"),
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
-                        lineNumber: 104,
+                        lineNumber: 132,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control.Feedback, {
+                        type: "invalid",
+                        children: errors.find((e)=>e.param === "email")?.msg
+                    }, void 0, false, {
+                        fileName: "src/components/singup-view/signup-view.jsx",
+                        lineNumber: 140,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/singup-view/signup-view.jsx",
-                lineNumber: 102,
+                lineNumber: 130,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -31320,41 +31387,44 @@ const SignupView = ()=>{
                         children: "Date of Birth:"
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
-                        lineNumber: 113,
+                        lineNumber: 146,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
                         type: "date",
-                        value: birthday,
-                        onChange: (e)=>setBirthday(e.target.value)
+                        name: "birthday",
+                        value: formData.birthday,
+                        onChange: handleChange,
+                        isInvalid: !!errors.find((e)=>e.param === "birthday")
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
-                        lineNumber: 114,
+                        lineNumber: 147,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/singup-view/signup-view.jsx",
-                lineNumber: 112,
+                lineNumber: 145,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
                 variant: "primary",
                 type: "submit",
-                children: "Submit"
+                disabled: isLoading,
+                children: isLoading ? "Signing up..." : "Submit"
             }, void 0, false, {
                 fileName: "src/components/singup-view/signup-view.jsx",
-                lineNumber: 121,
+                lineNumber: 156,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/singup-view/signup-view.jsx",
-        lineNumber: 60,
+        lineNumber: 68,
         columnNumber: 5
     }, undefined);
 };
-_s(SignupView, "mI9JfqsSl4FY9hm+7EEJ+vjYRkk=");
+_s(SignupView, "RXEYfbf7DFQYhX16xSZKEdczsPM=");
 _c = SignupView;
 var _c;
 $RefreshReg$(_c, "SignupView");

@@ -34,8 +34,12 @@ export const LoginView = ({onLoggedIn}) => {
         localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("token", data.token);
         onLoggedIn(data.user, data.token); 
+
+      // Reload the page after successful login
+      window.location.reload();
+
       } else {
-        alert("No such user");
+        alert("Username or Password is not correct!! Try again.");
       }
     })
     .catch((e) => {

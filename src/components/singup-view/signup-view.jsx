@@ -5,23 +5,35 @@ import Form from "react-bootstrap/Form";
 
 export const SignupView = () => {
   
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState("");
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    username: "",
+    password: "",
+    email: "",
+    birthday: "",
+  });
+
+  const [errors, setErrors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleChange = (event) => {
+    const {name, value} = event.target;
+    setFormData({...formData,[name]: value});
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsLoading(true);
+    setErrors([]); // Clear previous errors
 
     const data = {
-      userName: username,
-      first_Name: firstname,
-      last_Name: lastname,
-      password: password,
-      email: email,
-      birthDay: birthday
+      userName: formData.username,
+      first_Name: formData.firstname,
+      last_Name: formData.lastname,
+      password: formData.password,
+      email: formData.email,
+      birthDay: formData.birthday
     };
   
     fetch("https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/create",
@@ -29,97 +41,120 @@ export const SignupView = () => {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json"
-      }
-      }).then((response) => {
-        if (response.ok) {
+        "Content-Type": "application/json",
+      },
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData)
+        if (responseData.errors) {
+          // Server-side validation errors
+          setErrors(responseData.errors);
+        } else {
           alert("Signup successful");
           window.location.reload();
-        } else {
-          alert("Signup failed");
         }
+      })
+      .catch((error) => {
+        console.error("Error during signup:", error);
+        setErrors([{ msg: "An unexpected error occurred. Please try again." }]);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-    };
-    // .then((data) => {
-    //   console.log("Login response: ", data);
-    //   if (data.userName) { // Locally saving the user and the key
-    //     localStorage.setItem("user", JSON.stringify(data.userName));
-    //     localStorage.setItem("token", data.token);
-    //     onLoggedIn(data.user, data.token); 
-    //   } else {
-    //     alert("No such user");
-    //   }
-    // })
-    // .catch((e) => {
-    //   alert("Something went wrong");
-    // });
-
-
+  };
 
   return (
-    <Form className="formGroup" onSubmit={handleSubmit}>
-      <Form.Group controlId="formFirstName">
+    <Form onSubmit={handleSubmit}>
+      <Form.Group className="formGroup" controlId="formFirstName">
         <Form.Label className="form-label">First Name:</Form.Label>
         <Form.Control
           type="text"
-          value={firstname}
-          onChange={(e) => setFirstName(e.target.value)}
-          required 
+          name="firstname"
+          value={formData.firstname}
+          onChange={handleChange} 
+          isInvalid={!!errors.find((e) => e.param === "first_Name")}
+          required
         />
+        <Form.Control.Feedback type="invalid">
+          {errors.find((e) => e.param === "first_Name")?.msg}
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className="formGroup" controlId="formLastName">
         <Form.Label>Last Name:</Form.Label>
         <Form.Control
           type="text"
-          value={lastname}
-          onChange={(e) => setLastName(e.target.value)}
+          name="lastname"
+          value={formData.lastname}
+          onChange={handleChange}
+          isInvalid={!!errors.find((e) => e.param === "last_Name")}
         />
+        <Form.Control.Feedback type="invalid">
+          {errors.find((e) => e.param === "last_Name")?.msg}
+        </Form.Control.Feedback>
       </Form.Group>
       
       <Form.Group className="formGroup" controlId="formUsernameLogin">
         <Form.Label>Username:</Form.Label>
         <Form.Control
           type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
           required
           minLength="5" 
+          isInvalid={!!errors.find((e) => e.param === "userName")}
         />
+        <Form.Control.Feedback type="invalid">
+          {errors.find((e) => e.param === "userName")?.msg}
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className="formGroup" controlId="formPasswordLogin">
         <Form.Label>Password:</Form.Label>
         <Form.Control
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
           required
           minLength="8"
+          isInvalid={!!errors.find((e) => e.param === "password")}
         />
+        <Form.Control.Feedback type="invalid">
+          {errors.find((e) => e.param === "password")?.msg}
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className="formGroup" controlId="formEmail">
         <Form.Label>Email:</Form.Label>
         <Form.Control
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          isInvalid={!!errors.find((e) => e.param === "email")}
           required
         />
+        <Form.Control.Feedback type="invalid">
+          {errors.find((e) => e.param === "email")?.msg}
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className="formGroup" controlId="formBirthday">
         <Form.Label>Date of Birth:</Form.Label>
         <Form.Control
           type="date"
-          value={birthday}
-          onChange={(e) => setBirthday(e.target.value)}
+          name="birthday"
+          value={formData.birthday}
+          onChange={handleChange}
+          isInvalid={!!errors.find((e) => e.param === "birthday")}
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
-        Submit
+      <Button variant="primary" type="submit" disabled={isLoading}>
+        {isLoading ? "Signing up..." : "Submit"}
       </Button>
     </Form>
     //     Email:

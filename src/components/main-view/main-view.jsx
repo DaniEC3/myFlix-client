@@ -40,7 +40,6 @@ export const MainView = () => {
         setMovies(moviesFromApi);
       });
   }, [token]);
-
   return (
     <Row className="justify-content-md-center"> 
       {!user ? (
@@ -59,7 +58,7 @@ export const MainView = () => {
           />
         </Col>
       ) : movies.length === 0 ? (
-        <div>The list is empty!</div>
+        <div>The list is empty! {movies}</div>
       ) : (
         <>
           {movies.map((movie) => (
