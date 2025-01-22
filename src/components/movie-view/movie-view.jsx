@@ -49,7 +49,7 @@ export const MovieView = ({ movie, onBackClick, similarMovies, setSelectedMovie 
         </Col>
         <Row> 
           {similarMovies.map((movie) => (
-            <Col key={movie.key}className="similarMovieCard" md={3}>
+            <Col key={movie.key} className="similarMovieCard" md={3}>
             <MovieCard
             key={movie.id}
             movie={movie} //Prop
