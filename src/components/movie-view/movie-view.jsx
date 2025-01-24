@@ -1,16 +1,20 @@
 import { MovieCard } from "../movie-card/movie-card";
 import {useState} from "react";
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import './movie-view.scss';
 
-export const MovieView = ({ movie, onBackClick, similarMovies, setSelectedMovie }) => {
+export const MovieView = ({ movies,movie, onBackClick, similarMovies, setSelectedMovie }) => {
   const formattedDate = new Date(movie.year_released).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
   const [currentMovie, setCurrentMovie] = useState(movie);
+
+  const movie = movies.find((b) => b.id === movieId);
 
   return (
     <div>
@@ -42,10 +46,12 @@ export const MovieView = ({ movie, onBackClick, similarMovies, setSelectedMovie 
             <span>genre: </span>
             <span>{movie.genre}</span>
           </div>
-          <button onClick={onBackClick} 
-          className="back-button"
-          style={{ cursor: "pointer" }}
-          >Back</button>
+          <Link to={'/'}>
+            <button onClick={onBackClick} 
+            className="back-button"
+            style={{ cursor: "pointer" }}
+            >Back</button>
+          </Link>
         </Col>
         <Row> 
           {similarMovies.map((movie) => (

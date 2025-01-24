@@ -1,32 +1,24 @@
+import React from "react";
 import PropTypes from "prop-types";
-import { Button, Card, } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import "./movie-card.scss";
 
-export const MovieCard = ({ movie, onMovieClick }) => {
+export const MovieCard = ({ movie }) => {
   return (
     <Card className="h-100 movieCard">
       <Card.Img variant="top" src={movie.image}/>
       <Card.Body className="card-body">
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>{movie.author}</Card.Text>
-        <Button className="movie-btn" onClick={() => onMovieClick(movie)} variant="link">
-        {movie.name}
-        </Button>
+        <Link to = {'/movies/${encodeURIComponent(book.id)}'}>
+          <Button className="movie-btn" variant="link"></Button>
+        </Link>
       </Card.Body>
     </Card>
-    
-    // <div
-    //   onClick={() => {
-    //     onMovieClick(movie);
-    //   }}
-    // >
-    //   {movie.name}
-    // </div>
   );
 };
-
-
 // set the static PropTypes property on MovieCard
 //  to an object that contains special values provided
 //  as utilities by prop-types.
@@ -40,5 +32,4 @@ MovieCard.propTypes = {
     description: PropTypes.string.isRequired,
     genre: PropTypes.string
   }).isRequired,
-  onMovieClick: PropTypes.func.isRequired
 };
