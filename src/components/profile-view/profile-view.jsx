@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Container, Row, Col } from "react-bootstrap";
+import { Button, Form, Container, Row, Col, Card } from "react-bootstrap";
+import UserInfo from "./user-info";
 
-export const ProfileView = (user) => {
+export const ProfileView = (user, movies) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // const removeFav =  (id) => {...
+
+  // }
 
   // Fetch user details from the /users endpoint
   useEffect(() => {
@@ -50,36 +55,24 @@ export const ProfileView = (user) => {
   return (
     <Container>
       <Row>
-        <Col md={8} className="mx-auto">
-          <h1>Profile View</h1>
-          <Form>
-          <Form.Group controlId="formEmail">
-              <Form.Label>First Name:</Form.Label>
-              <Form.Control type="email" value={foundUser.first_Name} readOnly />
-            </Form.Group>
-            <Form.Group controlId="formEmail">
-              <Form.Label>Last Name:</Form.Label>
-              <Form.Control type="email" value={foundUser.last_Name} readOnly />
-            </Form.Group>
-            <Form.Group controlId="formUsername">
-              <Form.Label>Username:</Form.Label>
-              <Form.Control type="text" value={foundUser.userName} readOnly />
-            </Form.Group>
-            <Form.Group controlId="formEmail">
-              <Form.Label>Email:</Form.Label>
-              <Form.Control type="email" value={foundUser.email} readOnly />
-            </Form.Group>
-            <Form.Group controlId="formBirthday">
-              <Form.Label>Date of Birth:</Form.Label>
-              <Form.Control type="text" value={foundUser.birthDay} readOnly />
-            </Form.Group>
-            <Button
-              variant="primary"
-              onClick={() => alert("Edit functionality not implemented yet.")}
-            >
-              Edit Profile
-            </Button>
-          </Form>
+        <Col xs={12} sm={4}>
+          <Card>
+            <Card.Body>
+              <UserInfo 
+              user={foundUser}
+              />
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col sx={12} sm={8}>
+          <Card>
+            <Card.Body>
+              <Favorite-Movies
+              user={foundUser}
+              movies={prop}
+              />
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>
