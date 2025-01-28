@@ -31209,7 +31209,7 @@ const SignupView = ()=>{
                         name: "firstname",
                         value: formData.firstname,
                         onChange: handleChange,
-                        isInvalid: !!errors.find((e)=>e.param === "first_Name"),
+                        isInvalid: !!errors.find((e)=>e.path === "first_Name"),
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
@@ -31218,7 +31218,7 @@ const SignupView = ()=>{
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control.Feedback, {
                         type: "invalid",
-                        children: errors.find((e)=>e.param === "first_Name")?.msg
+                        children: errors.find((e)=>e.path === "first_Name")?.msg
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
                         lineNumber: 79,
@@ -31246,7 +31246,7 @@ const SignupView = ()=>{
                         name: "lastname",
                         value: formData.lastname,
                         onChange: handleChange,
-                        isInvalid: !!errors.find((e)=>e.param === "last_Name")
+                        isInvalid: !!errors.find((e)=>e.path === "last_Name")
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
                         lineNumber: 86,
@@ -31254,7 +31254,7 @@ const SignupView = ()=>{
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control.Feedback, {
                         type: "invalid",
-                        children: errors.find((e)=>e.param === "last_Name")?.msg
+                        children: errors.find((e)=>e.path === "last_Name")?.msg
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
                         lineNumber: 93,
@@ -31284,7 +31284,7 @@ const SignupView = ()=>{
                         onChange: handleChange,
                         required: true,
                         minLength: "5",
-                        isInvalid: !!errors.find((e)=>e.param === "userName")
+                        isInvalid: !!errors.find((e)=>e.path === "userName")
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
                         lineNumber: 100,
@@ -31292,7 +31292,7 @@ const SignupView = ()=>{
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control.Feedback, {
                         type: "invalid",
-                        children: errors.find((e)=>e.param === "userName")?.msg
+                        children: errors.find((e)=>e.path === "userName")?.msg
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
                         lineNumber: 109,
@@ -31322,7 +31322,7 @@ const SignupView = ()=>{
                         onChange: handleChange,
                         required: true,
                         minLength: "8",
-                        isInvalid: !!errors.find((e)=>e.param === "password")
+                        isInvalid: !!errors.find((e)=>e.path === "password")
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
                         lineNumber: 116,
@@ -31330,7 +31330,7 @@ const SignupView = ()=>{
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control.Feedback, {
                         type: "invalid",
-                        children: errors.find((e)=>e.param === "password")?.msg
+                        children: errors.find((e)=>e.path === "password")?.msg
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
                         lineNumber: 125,
@@ -31358,7 +31358,7 @@ const SignupView = ()=>{
                         name: "email",
                         value: formData.email,
                         onChange: handleChange,
-                        isInvalid: !!errors.find((e)=>e.param === "email"),
+                        isInvalid: !!errors.find((e)=>e.path === "email"),
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
@@ -31367,7 +31367,7 @@ const SignupView = ()=>{
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control.Feedback, {
                         type: "invalid",
-                        children: errors.find((e)=>e.param === "email")?.msg
+                        children: errors.find((e)=>e.path === "email")?.msg
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
                         lineNumber: 140,
@@ -31395,7 +31395,7 @@ const SignupView = ()=>{
                         name: "birthday",
                         value: formData.birthday,
                         onChange: handleChange,
-                        isInvalid: !!errors.find((e)=>e.param === "birthday")
+                        isInvalid: !!errors.find((e)=>e.path === "birthday")
                     }, void 0, false, {
                         fileName: "src/components/singup-view/signup-view.jsx",
                         lineNumber: 147,
