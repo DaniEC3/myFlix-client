@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import './movie-view.scss';
 
-export const MovieView = ({ movies,movie, onBackClick, similarMovies, setSelectedMovie }) => {
+export const MovieView = ({ movies, onBackClick, similarMovies, setSelectedMovie }) => {
   const formattedDate = new Date(movie.year_released).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
