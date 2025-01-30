@@ -8,8 +8,8 @@ export const MovieCard = ({ movie, onMovieClick }) => {
     <Card className="h-100 movieCard">
       <Card.Img variant="top" src={movie.image}/>
       <Card.Body className="card-body">
-        <Card.Title>{movie.title}</Card.Title>
-        <Card.Text>{movie.author}</Card.Text>
+        <Card.Title>{movie.name}</Card.Title>
+        <Card.Text>{movie.director}</Card.Text>
         <Button className="movie-btn" onClick={() => onMovieClick(movie)} variant="link">
         {movie.name}
         </Button>
