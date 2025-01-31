@@ -1,8 +1,11 @@
 import React from "react";
+import { useState } from "react";
+import { Container, Form, Row, Col, Button } from "react-bootstrap";
 
-function UserInfo({foundUser}) {
+function UserInfo({user}) {
+  console.log(user)
   const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
-  const [editableUser, setEditableUser] = useState({ ...foundUser }); // Editable user data
+  const [editableUser, setEditableUser] = useState({ ...user }); // Editable user data
   
   const handleInputChange = (e) => {
     const { name, value } = e.target; // Extract 'name' and 'value' from the input field
@@ -13,6 +16,7 @@ function UserInfo({foundUser}) {
   };
   
   const handleSave = async () => {
+    console.log(editableUser)
     const url = `/users/update/${editableUser.userName}`; // Endpoint URL
     try {
       const response = await fetch(url, {

@@ -10,10 +10,10 @@ export const MovieCard = ({ movie }) => {
     <Card className="h-100 movieCard">
       <Card.Img variant="top" src={movie.image}/>
       <Card.Body className="card-body">
-        <Card.Title>{movie.title}</Card.Title>
-        <Card.Text>{movie.author}</Card.Text>
-        <Link to = {'/movies/${encodeURIComponent(book.id)}'}>
-          <Button className="movie-btn" variant="link"></Button>
+        <Card.Title>{movie.name}</Card.Title>
+        <Card.Text>{movie.director}</Card.Text>
+        <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+          <Button className="movie-btn" variant="link">Button</Button>
         </Link>
       </Card.Body>
     </Card>

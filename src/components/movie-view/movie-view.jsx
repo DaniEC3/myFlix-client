@@ -6,15 +6,21 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import './movie-view.scss';
 
-export const MovieView = ({ movies, onBackClick, similarMovies, setSelectedMovie }) => {
+export const MovieView = ({ movies, onBackClick, setSelectedMovie }) => {
+ 
+  const { movieId } = useParams(); // Get movieId from the URL
+  const movie = movies.find((b) => b.id === decodeURIComponent(movieId));
+  if (!movie) return <div>Movie not found!</div>;
+
   const formattedDate = new Date(movie.year_released).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
   const [currentMovie, setCurrentMovie] = useState(movie);
-
-  const movie = movies.find((b) => b.id === movieId);
+  const similarMovies = currentMovie
+  ? movies.filter((movie) => movie.genre === currentMovie.genre)
+  : [];
 
   return (
     <div>
@@ -56,12 +62,12 @@ export const MovieView = ({ movies, onBackClick, similarMovies, setSelectedMovie
         <Row> 
           {similarMovies.map((movie) => (
             <Col key={movie.key} className="similarMovieCard" md={3}>
-            <MovieCard
-            key={movie.id}
-            movie={movie} //Prop
-            onMovieClick={(newSelectedMovie) => 
-            setSelectedMovie(newSelectedMovie)}
-            />
+              <MovieCard
+              key={movie.id}
+              movie={movie} //Prop
+              onMovieClick={(newSelectedMovie) => 
+              setSelectedMovie(newSelectedMovie)}
+              />
             </Col>
             ))}
         

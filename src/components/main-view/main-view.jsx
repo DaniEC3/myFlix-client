@@ -5,6 +5,7 @@ import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../singup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { ProfileView } from "../profile-view/profile-view";
 import Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -12,35 +13,57 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
+  const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
   const [user, setUser] = useState(storedUser? storedUser : null);
   const [token, setToken] = useState(storedToken? storedToken : null);
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(storedMovies);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const similarMovies = selectedMovie
-  ? movies.filter((movie) => movie.genre === selectedMovie.genre)
-  : [];
 
   useEffect(() => {
     if (!token) {
+      console.log("No token found.");
+      alert("No token found.");
       return;
     }
-    fetch("https://movies-my-flix-app-60bc918eee2b.herokuapp.com/movies", {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then((response) => response.json())
-      .then((movies) => {
-        const moviesFromApi = movies.map((mov) => {
-          return {
-            id: mov._id,
-            name: mov.name,
-            director: mov.director,
-            year_released: mov.year_released,
-            description: mov.description,
-            genre: mov.genre
-          };
+  
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch("https://movies-my-flix-app-60bc918eee2b.herokuapp.com/movies", {
+          headers: { Authorization: `Bearer ${token}` }
         });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        const data = await response.json();
+        console.log("API Response:", data);
+  
+        if (!Array.isArray(data)) {
+          console.error("Error: API response is not an array", data);
+          setMovies([]); 
+          return;
+        }
+  
+        const moviesFromApi = data.map((mov) => ({
+          id: mov._id,
+          name: mov.name,
+          director: mov.director,
+          year_released: mov.year_released,
+          description: mov.description,
+          genre: mov.genre
+        }));
+  
+        console.log("Movies to be set:", moviesFromApi);
         setMovies(moviesFromApi);
-      });
+        localStorage.setItem("movies", JSON.stringify(moviesFromApi)); // Store movies in local storage
+      } catch (error) {
+        console.error("Fetching movies failed:", error);
+        setMovies([]);
+      }
+    };
+  
+    fetchMovies();
   }, [token]);
   return (
     <BrowserRouter>
@@ -88,11 +111,13 @@ export const MainView = () => {
               <>
                 {!user ? (
                   <Navigate to="/login" replace/>
-                ) : movies.lenght === 0 ? (
+                ) : movies.length === 0 ? (
                   <Col>The list is empty!</Col>
                 ) : (
                   <Col md={5}>
-                    <MovieView movies={movies} />
+                    <MovieView 
+                    movies={movies}
+                    />
                   </Col>
                 )}
               </>
@@ -134,6 +159,7 @@ export const MainView = () => {
                     <ProfileView
                     user={user}
                     movies={movies}
+                    token={token}
                     />
                   </Col>
                 )}

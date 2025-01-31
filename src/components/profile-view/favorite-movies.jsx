@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function FavoriteMovies(user,movies, removeFav) {
+function FavoriteMovies({user, movies, removeFav}) {
+  
   // Filter movies to get the user's favorite movies
+  console.log("Movies in FavoriteMovies:", user);
   const favoriteMovies = movies.filter((movie) =>
     user.FavoriteMovies.includes(movie._id)
   );

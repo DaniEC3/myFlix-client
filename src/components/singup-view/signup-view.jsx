@@ -73,11 +73,11 @@ export const SignupView = () => {
           name="firstname"
           value={formData.firstname}
           onChange={handleChange} 
-          isInvalid={!!errors.find((e) => e.param === "first_Name")}
+          isInvalid={!!errors.find((e) => e.path === "first_Name")}
           required
         />
         <Form.Control.Feedback type="invalid">
-          {errors.find((e) => e.param === "first_Name")?.msg}
+          {errors.find((e) => e.path === "first_Name")?.msg}
         </Form.Control.Feedback>
       </Form.Group>
 
@@ -88,10 +88,10 @@ export const SignupView = () => {
           name="lastname"
           value={formData.lastname}
           onChange={handleChange}
-          isInvalid={!!errors.find((e) => e.param === "last_Name")}
+          isInvalid={!!errors.find((e) => e.path === "last_Name")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.find((e) => e.param === "last_Name")?.msg}
+          {errors.find((e) => e.path === "last_Name")?.msg}
         </Form.Control.Feedback>
       </Form.Group>
       
@@ -104,10 +104,10 @@ export const SignupView = () => {
           onChange={handleChange}
           required
           minLength="5" 
-          isInvalid={!!errors.find((e) => e.param === "userName")}
+          isInvalid={!!errors.find((e) => e.path === "userName")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.find((e) => e.param === "userName")?.msg}
+          {errors.find((e) => e.path === "userName")?.msg}
         </Form.Control.Feedback>
       </Form.Group>
 
@@ -120,10 +120,10 @@ export const SignupView = () => {
           onChange={handleChange}
           required
           minLength="8"
-          isInvalid={!!errors.find((e) => e.param === "password")}
+          isInvalid={!!errors.find((e) => e.path === "password")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.find((e) => e.param === "password")?.msg}
+          {errors.find((e) => e.path === "password")?.msg}
         </Form.Control.Feedback>
       </Form.Group>
 
@@ -134,11 +134,11 @@ export const SignupView = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          isInvalid={!!errors.find((e) => e.param === "email")}
+          isInvalid={!!errors.find((e) => e.path === "email")}
           required
         />
         <Form.Control.Feedback type="invalid">
-          {errors.find((e) => e.param === "email")?.msg}
+          {errors.find((e) => e.path === "email")?.msg}
         </Form.Control.Feedback>
       </Form.Group>
 
@@ -149,7 +149,7 @@ export const SignupView = () => {
           name="birthday"
           value={formData.birthday}
           onChange={handleChange}
-          isInvalid={!!errors.find((e) => e.param === "birthday")}
+          isInvalid={!!errors.find((e) => e.path === "birthday")}
         />
       </Form.Group>
 

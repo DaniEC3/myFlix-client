@@ -1,65 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Container, Row, Col, Card } from "react-bootstrap";
 import UserInfo from "./user-info";
+import FavoriteMovies from "./favorite-movies";
 
-export const ProfileView = (user, movies) => {
-  const [loading, setLoading] = useState(true);
+export const ProfileView = ({user, movies}) => {
   const [error, setError] = useState(null);
-
-  // const removeFav =  (id) => {...
-
-  // }
-
-  // Fetch user details from the /users endpoint
-  useEffect(() => {
-    
-    if (!user) {
-      setError("You must be logged in to view your profile.");
-      setLoading(false);
-      return;
-    }
-
-    fetch(`"https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch user details.");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const foundUser = data.find((u) => u.userName === user);
-        if (!foundUser) {
-          setError("User not found.");
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, []);
-
-  // Display loading, error, or user data
-  if (loading) {
-    return <div>Loading...</div>;
+  const storedToken = localStorage.getItem("token");
+  const [token, setToken] = useState(storedToken? storedToken : null);
+  
+  if (!user) {
+    setError("You must be logged in to view your profile.");
+    return;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
+  if (!token) {
+    setError("No token.");
+    return;
   }
-
   return (
     <Container>
       <Row>
-        <Col xs={12} sm={4}>
+        <Col xs={12} sm={12} m={12}>
           <Card>
             <Card.Body>
               <UserInfo 
-              user={foundUser}
+                user={user}
               />
             </Card.Body>
           </Card>
@@ -67,9 +32,9 @@ export const ProfileView = (user, movies) => {
         <Col sx={12} sm={8}>
           <Card>
             <Card.Body>
-              <Favorite-Movies
-              user={foundUser}
-              movies={prop}
+              <FavoriteMovies
+              user={user}
+              movies={movies}
               />
             </Card.Body>
           </Card>
@@ -78,3 +43,6 @@ export const ProfileView = (user, movies) => {
     </Container>
   );
 };
+
+
+export default ProfileView;
