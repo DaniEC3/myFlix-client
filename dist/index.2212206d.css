@@ -13165,6 +13165,25 @@ body {
   font-family: Audiowide, sans-serif;
 }
 
+.bg-body-tertiary {
+  color: #fff;
+  background-color: #000 !important;
+}
+
+.navbar-brand, .nav-link {
+  color: #98cc3d;
+}
+
+.navbar-brand:hover, .nav-link:hover {
+  color: #cfff5a;
+}
+
+.nav-link:focus, .nav-link:active, .navbar-brand:focus, .navbar-brand:active {
+  color: inherit !important;
+  box-shadow: none !important;
+  background-color: #0000 !important;
+}
+
 .movieCard {
   background-color: #adff2f;
   border-radius: 10px;
@@ -13180,6 +13199,38 @@ body {
   color: #000;
   background-color: #000;
   border: thick #d6ff97;
+}
+
+.card-title, .card-text {
+  color: #fff;
+}
+
+.similar-movies-container {
+  scroll-behavior: smooth;
+  padding: 10px 0;
+  overflow-x: auto;
+}
+
+.similar-movies-scroll {
+  gap: 10px;
+  display: flex;
+}
+
+.similarMovieCard {
+  flex-shrink: 0;
+}
+
+.similar-movies-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.similar-movies-container::-webkit-scrollbar-thumb {
+  background-color: #cfff5a;
+  border-radius: 4px;
+}
+
+.similar-movies-container::-webkit-scrollbar-track {
+  background-color: #000;
 }
 
 .form-label {

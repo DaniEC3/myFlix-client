@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import WelcomeCard from "./welcome-card";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
@@ -37,7 +38,6 @@ export const MainView = () => {
         }
   
         const data = await response.json();
-        console.log("API Response:", data);
   
         if (!Array.isArray(data)) {
           console.error("Error: API response is not an array", data);
@@ -54,7 +54,6 @@ export const MainView = () => {
           genre: mov.genre
         }));
   
-        console.log("Movies to be set:", moviesFromApi);
         setMovies(moviesFromApi);
         localStorage.setItem("movies", JSON.stringify(moviesFromApi)); // Store movies in local storage
       } catch (error) {
@@ -114,7 +113,7 @@ export const MainView = () => {
                 ) : movies.length === 0 ? (
                   <Col>The list is empty!</Col>
                 ) : (
-                  <Col md={5}>
+                  <Col md={10}>
                     <MovieView 
                     movies={movies}
                     />
@@ -132,18 +131,25 @@ export const MainView = () => {
                 ) : movies.length === 0 ? (
                   <Col>The list is empty!</Col>
                 ) : (
-                  <>
-                    {movies.map((movie) => (
-                      <Col className="mb-4" key={movie.id} md={3}>
-                        <MovieCard 
-                        movie={movie}
-                        // onMovieClick={(newSelectedMovie) => {
-                        // setSelectedMovie(newSelectedMovie);
-                        // }}
-                      />
-                      </Col>  
-                    ))}
-                  </>
+                  <Col>
+                    <Row>
+                      <WelcomeCard />
+                    </Row>
+                    <Row>
+                    <>
+                      {movies.map((movie) => (
+                        <Col className="mb-4" key={movie.id} md={3}>
+                          <MovieCard 
+                          movie={movie}
+                          // onMovieClick={(newSelectedMovie) => {
+                          // setSelectedMovie(newSelectedMovie);
+                          // }}
+                        />
+                        </Col>  
+                      ))}
+                    </>
+                    </Row>
+                  </Col>
                 )}
               </>
             }
@@ -155,7 +161,7 @@ export const MainView = () => {
                 {!user ? (
                   <Navigate to="/login" />
                 ) : (
-                  <Col md={5}>
+                  <Col md={10}>
                     <ProfileView
                     user={user}
                     movies={movies}

@@ -18,7 +18,7 @@ Welcome to the **Movie App**! This project allows users to explore a movie datab
 - `POST /users/create` - Register a new user.
 - `GET /movies` - Fetch all movies.
 - `GET /movies/:id` - Fetch details of a specific movie.
-- `PUT /users/:userName` - Update user details.
+- `PUT /users/update/:userName` - Update user details.
 - `DELETE /users/:userName` - Remove a user.
 
 For complete API documentation, visit the `/documentation` endpoint.

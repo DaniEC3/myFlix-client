@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 
 function UserInfo({user}) {
-  console.log(user)
   const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
   const [editableUser, setEditableUser] = useState({ ...user }); // Editable user data
   
@@ -16,7 +15,6 @@ function UserInfo({user}) {
   };
   
   const handleSave = async () => {
-    console.log(editableUser)
     const url = `/users/update/${editableUser.userName}`; // Endpoint URL
     try {
       const response = await fetch(url, {
