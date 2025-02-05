@@ -4,8 +4,13 @@ import { Container, Form, Row, Col, Button } from "react-bootstrap";
 
 function UserInfo({user}) {
   const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
-  const [editableUser, setEditableUser] = useState({ ...user }); // Editable user data
-  
+  const [editableUser, setEditableUser] = useState({
+    first_Name: user.first_Name || "",
+    last_Name: user.last_Name || "",
+    userName: user.userName || "",
+    email: user.email || "",
+    birthDay: user.birthDay || "",
+  });
   const handleInputChange = (e) => {
     const { name, value } = e.target; // Extract 'name' and 'value' from the input field
     setEditableUser((prevState) => ({
@@ -15,7 +20,7 @@ function UserInfo({user}) {
   };
   
   const handleSave = async () => {
-    const url = `/users/update/${editableUser.userName}`; // Endpoint URL
+    const url = `https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/update/${editableUser.userName}`; // Endpoint URL
     try {
       const response = await fetch(url, {
         method: "PUT",
@@ -24,20 +29,21 @@ function UserInfo({user}) {
         },
         body: JSON.stringify(editableUser), // Convert data to JSON
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to update the profile");
       }
   
-      const result = await response.json(); // Parse the server response
       alert("Profile updated successfully!");
-      console.log("Server Response:", result);
+      // console.log("Server Response:", result);
   
       setIsEditing(false); // Switch back to view mode
     } catch (error) {
       console.error("Error updating the profile:", error);
       alert("Something went wrong. Please try again.");
     }
+
+    console.log
   };
 
   return (
