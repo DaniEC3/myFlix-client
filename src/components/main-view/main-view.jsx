@@ -18,7 +18,8 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser? storedUser : null);
   const [token, setToken] = useState(storedToken? storedToken : null);
   const [movies, setMovies] = useState(storedMovies);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [genres, setGenres] = useState([]);
+  const [directors, setDirectors] = useState([]);
 
   useEffect(() => {
     if (!token) {
@@ -26,7 +27,43 @@ export const MainView = () => {
       alert("No token found.");
       return;
     }
-  
+
+    const fetchGenres = async () => {
+      try {
+        const response = await fetch(
+          "https://movies-my-flix-app-60bc918eee2b.herokuapp.com/genres",
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch genres");
+        }
+
+        const result = await response.json();
+        setGenres(result);
+      } catch (error) {
+        console.error("Error fetching genres:", error);
+      }
+    };
+
+    const fetchDirectors = async () => { // Fetch directors
+      try {
+        const response = await fetch(
+          "https://movies-my-flix-app-60bc918eee2b.herokuapp.com/directors",
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch directors");
+        }
+
+        const result = await response.json();
+        setDirectors(result);
+      } catch (error) {
+        console.error("Error fetching directors:", error);
+      }
+    };
+
     const fetchMovies = async () => {
       try {
         const response = await fetch("https://movies-my-flix-app-60bc918eee2b.herokuapp.com/movies", {
@@ -51,7 +88,8 @@ export const MainView = () => {
           director: mov.director,
           year_released: mov.year_released,
           description: mov.description,
-          genre: mov.genre
+          genre: mov.genre,
+          imagePath: mov.imagePath
         }));
   
         setMovies(moviesFromApi);
@@ -63,6 +101,8 @@ export const MainView = () => {
     };
   
     fetchMovies();
+    fetchGenres();
+    fetchDirectors();
   }, [token]);
   return (
     <BrowserRouter>
@@ -76,6 +116,37 @@ export const MainView = () => {
       />
       <Row className="justify-content-md-center"> 
         <Routes>
+        <Route
+            path="/"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list is empty!</Col>
+                ) : (
+                  <Col>
+                    <Row>
+                      <WelcomeCard />
+                    </Row>
+                    <Row>
+                    <>
+                      {movies.map((movie) => (
+                        <Col className="mb-4" key={movie.id} md={3}>
+                          <MovieCard 
+                          movie={movie}
+                          genres={genres}
+                          directors={directors}
+                        />
+                        </Col>  
+                      ))}
+                    </>
+                    </Row>
+                  </Col>
+                )}
+              </>
+            }
+          />
           <Route
             path="/signup"
             element={
@@ -116,39 +187,12 @@ export const MainView = () => {
                   <Col md={10}>
                     <MovieView 
                     movies={movies}
+                    genres={genres}
+                    directors={directors}
+                    user={user}
+                    token={token}
+                    setUser={setUser}
                     />
-                  </Col>
-                )}
-              </>
-            }
-          />
-          <Route
-            path="/"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col>
-                ) : (
-                  <Col>
-                    <Row>
-                      <WelcomeCard />
-                    </Row>
-                    <Row>
-                    <>
-                      {movies.map((movie) => (
-                        <Col className="mb-4" key={movie.id} md={3}>
-                          <MovieCard 
-                          movie={movie}
-                          // onMovieClick={(newSelectedMovie) => {
-                          // setSelectedMovie(newSelectedMovie);
-                          // }}
-                        />
-                        </Col>  
-                      ))}
-                    </>
-                    </Row>
                   </Col>
                 )}
               </>
@@ -164,9 +208,18 @@ export const MainView = () => {
                   <Col md={10}>
                     <ProfileView
                     user={user}
+                    setUser={setUser}
                     movies={movies}
                     token={token}
+                    genres={genres}
+                    directors={directors}
+                    onLoggedOut={() => {
+                      setUser(null);
+                      setToken(null);
+                      localStorage.clear();
+                    }}
                     />
+                    
                   </Col>
                 )}
               </>

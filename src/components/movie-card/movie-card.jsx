@@ -5,64 +5,14 @@ import { Link } from "react-router-dom";
 
 import "./movie-card.scss";
 
-export const MovieCard = ({ movie }) => {
-  const [genres, setGenres] = useState([]);
-  const [directors, setDirectors] = useState([]); 
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    if (!token) {
-      console.log("No token found.");
-      return;
-    }
-
-    const fetchGenres = async () => {
-      try {
-        const response = await fetch(
-          "https://movies-my-flix-app-60bc918eee2b.herokuapp.com/genres",
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch genres");
-        }
-
-        const result = await response.json();
-        setGenres(result);
-      } catch (error) {
-        console.error("Error fetching genres:", error);
-      }
-    };
-
-    const fetchDirectors = async () => { // Fetch directors
-      try {
-        const response = await fetch(
-          "https://movies-my-flix-app-60bc918eee2b.herokuapp.com/directors",
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch directors");
-        }
-
-        const result = await response.json();
-        setDirectors(result);
-      } catch (error) {
-        console.error("Error fetching directors:", error);
-      }
-    };
-
-    fetchGenres();
-    fetchDirectors(); // Call fetchDirectors
-  }, [token]);
-
+export const MovieCard = ({ movie, genres, directors }) => {
 
   // Find genre name by matching movie.genre (ID) with the fetched genres
   const matchedGenre = genres.find((g) => g._id === movie.genre);
 
   // Find director name by matching movie.director (ID) with the fetched directors
   const matchedDirector = directors.find((d) => d._id === movie.director);
-
+  
   return (
     <Card className="h-100 movieCard">
       <Card.Img variant="top" src={movie.imagePath} /> 

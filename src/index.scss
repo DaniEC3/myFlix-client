@@ -21,6 +21,20 @@ $body-font: 'Inter', sans-serif;
 body {
   font-family: $headers-font;
 }
+// Movie View
+
+.img-movieView {
+  img {
+    border: 4px solid #CFFF5A; // Change color as needed
+    border-radius: 10px; // Optional: Rounds the corners
+    padding: 8px; // Space inside the border
+    // display: inline-block; // Keeps it tight around the image
+    background-color: black; // Optional: Background behind the image
+  }
+}
+
+
+// 
 
 // Nav-Bar
 
@@ -55,7 +69,7 @@ body {
 
 .movie-info{
   color: white;
-  margin-bottom: 20px;
+  margin: 20px 0px 20px 0px;
 
 }
 
@@ -77,35 +91,60 @@ body {
 
 // Similar Movies
 
-.similar-movies-container {
+.scrolling-movies-container {
   overflow-x: auto; /* Enable horizontal scrolling */
   padding: 10px 0;  /* Optional padding to give some space around the container */
   scroll-behavior: smooth;
+  margin-bottom: 50px;
 }
 
-.similar-movies-scroll {
+.scrolling-movies-scroll {
   display: flex; /* Arrange movie cards in a row */
   gap: 10px;     /* Add space between the movie cards */
 }
 
-.similarMovieCard {
+.scrollingMovieCard {
   flex-shrink: 0; /* Prevent movie cards from shrinking */
 }
 
-.similar-movies-container::-webkit-scrollbar {
+.scrolling-movies-container::-webkit-scrollbar {
   height: 8px; /* Vertical scrollbar thickness */
 }
 
-.similar-movies-container::-webkit-scrollbar-thumb {
+.scrolling-movies-container::-webkit-scrollbar-thumb {
   background-color: $lighter-Green; /* Color of the scrollbar */
   border-radius: 4px; /* Rounded corners for the scrollbar */
 }
 
-.similar-movies-container::-webkit-scrollbar-track {
+.scrolling-movies-container::-webkit-scrollbar-track {
   background-color: black; /* Background of the scrollbar track */
 }
 
 // 
+
+// Favorite Movies
+
+.favoriteTitle {
+  color: $muted-Green;
+}
+
+.noMovieText{
+  color: WHITE;
+}
+
+// 
+
+// USER INFO
+
+.deleteUserBt {
+  background-color: #ff5a5a !important;
+  color: white !important;
+  border: none !important;
+}
+
+.deleteUserBt:hover {
+  color :black !important;
+}
 
 .form-label {
   color: #fbfcfc;
@@ -127,13 +166,18 @@ color: #d6ff97;
 
 }
 
-.back-button {
+.back-button, .add-button {
   padding: 4px 12px 4px 12px;
   color: whitesmoke;
   background-color: $muted-Green;
   border-radius: 4px;
   margin-top: 15px;
   
+}
+
+.add-button {
+  background-color: #FFD700; // Change to your desired styles
+  margin-left: 5px;
 }
 
 .btn-primary {
@@ -222,3 +266,5 @@ color: #d6ff97;
   margin: 20px 0 20px 0;
 
 }
+
+//

@@ -6,9 +6,16 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import './movie-view.scss';
 
-export const MovieView = ({ movies, onBackClick, setSelectedMovie }) => {
+
+export const MovieView = ({ user, setUser, token, movies, genres, directors, onBackClick }) => {
   const { movieId } = useParams(); // Get movieId from the URL
   const movie = movies.find((b) => b.id === decodeURIComponent(movieId));
+  
+  // Find genre name by matching movie.genre (ID) with the fetched genres
+  const matchedGenre = genres.find((g) => g._id === movie.genre);
+
+  // Find director name by matching movie.director (ID) with the fetched directors
+  const matchedDirector = directors.find((d) => d._id === movie.director);
   if (!movie) return <div>Movie not found!</div>;
 
   const shuffleArray = (array) => {
@@ -20,10 +27,46 @@ export const MovieView = ({ movies, onBackClick, setSelectedMovie }) => {
     return shuffledArray;
   };
 
+  const handleAddMovie = async () => {
+    const url = `https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/${user.userName}/movies/${movie.name}`;
+    
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}` // Include token in the header
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to add the movie");
+      }
+  
+      alert("Movie added");
+
+      // Refetch the updated user data
+      const updatedUserResponse = await fetch(`https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/${user.userName}`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}` // Include token in the header
+        }
+      });
+
+      const updatedUser = await updatedUserResponse.json();
+      console.log(updatedUser)
+
+      setUser(updatedUser);
+      console.log(user)
+    } catch (error) {
+      console.error("Error adding movie:", error);
+      alert("Something went wrong. Please try again.");
+    }
+  };
   const formattedDate = new Date(movie.year_released).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
-    day: "numeric",
+    day: "numeric"
   });
 
   const [currentMovie, setCurrentMovie] = useState(movie);
@@ -43,32 +86,33 @@ export const MovieView = ({ movies, onBackClick, setSelectedMovie }) => {
   };
 
   const shuffledSimilarMovies = shuffleArray(similarMovies);
+  
   return (
     <div>
       <Row>
-        <Col className="movie-info" md={12}>
-          <div>
+        <Col className="movie-info mt-5" md={12}>
+          <div className="text-center img-movieView">
             <img src={movie.imagePath} alt={movie.name} />
-          </div>
-          <div>
+          </div> 
+          <div className="mt-4">
             <span>Name: </span>
             <span>{movie.name}</span>
           </div>
-          <div>
+          <div className="mt-4">
             <span>Director: </span>
-            <span>{movie.director}</span>
+            <span>{matchedDirector ? matchedDirector.name : "Unknown"}</span>
           </div>
           <div>
             <span>Year Released: </span>
             <span>{formattedDate}</span>
           </div>
-          <div>
+          <div className="mt-4">
             <span>Description: </span>
             <span>{movie.description}</span>
           </div>
-          <div>
+          <div className="mt-4">
             <span>Genre: </span>
-            <span>{movie.genre}</span>
+            <span>{matchedGenre ? matchedGenre.name : "Unknown"}</span>
           </div>
           <Link to={'/'}>
             <button onClick={onBackClick} 
@@ -76,14 +120,22 @@ export const MovieView = ({ movies, onBackClick, setSelectedMovie }) => {
             style={{ cursor: "pointer" }}
             >Back</button>
           </Link>
+          <button onClick={handleAddMovie} className="add-button">
+            {user.FavoriteMovies?.includes(movie._id) ? "Movie added" : "Add movie"}
+          </button>
         </Col>
         <Row>
           {/* Container with horizontal scrolling */}
-          <Col md={12} className="similar-movies-container">
-            <div className="similar-movies-scroll">
+          <Col md={12} className="scrolling-movies-container">
+            <div className="scrolling-movies-scroll">
               {shuffledSimilarMovies.map((movie) => (
-                <Col xs={12} sm={12} md={6} lg={4} key={movie.id} className="similarMovieCard">
-                  <MovieCard movie={movie} setCurrentMovie={setCurrentMovie} />
+                <Col xs={12} sm={12} md={6} lg={4} key={movie.id} className="scrollingMovieCard">
+                  <MovieCard 
+                  movie={movie} 
+                  setCurrentMovie={setCurrentMovie}
+                  genres={genres}
+                  directors={directors}
+                  />
                 </Col>
               ))}
             </div>

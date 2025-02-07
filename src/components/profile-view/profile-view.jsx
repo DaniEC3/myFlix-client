@@ -3,7 +3,7 @@ import { Button, Form, Container, Row, Col, Card } from "react-bootstrap";
 import UserInfo from "./user-info";
 import FavoriteMovies from "./favorite-movies";
 
-export const ProfileView = ({user, movies}) => {
+export const ProfileView = ({user, setUser, movies, onLoggedOut,setCurrentMovie,genres,directors}) => {
   const [error, setError] = useState(null);
   const storedToken = localStorage.getItem("token");
   const [token, setToken] = useState(storedToken? storedToken : null);
@@ -12,7 +12,7 @@ export const ProfileView = ({user, movies}) => {
     setError("You must be logged in to view your profile.");
     return;
   }
-
+  console.log(user)
   if (!token) {
     setError("No token.");
     return;
@@ -25,16 +25,22 @@ export const ProfileView = ({user, movies}) => {
             <Card.Body>
               <UserInfo 
                 user={user}
+                setUser={setUser}
+                setToken={setToken}
+                onLoggedOut={onLoggedOut}
               />
             </Card.Body>
           </Card>
         </Col>
-        <Col sx={12} sm={8}>
-          <Card>
+        <Col>
+          <Card m={12}>
             <Card.Body>
               <FavoriteMovies
               user={user}
               movies={movies}
+              setCurrentMovie={setCurrentMovie}
+              genres={genres}
+              directors={directors}
               />
             </Card.Body>
           </Card>

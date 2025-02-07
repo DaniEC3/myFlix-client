@@ -1,16 +1,37 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-function UserInfo({user}) {
+function UserInfo({user,setUser, onLoggedOut}) {
+  const navigate = useNavigate();
+  // console.log(user)
+  if (!user) {
+    return <div>Loading...</div>; // Or another loading state
+  }
+  
+  const token = localStorage.getItem("token"); // or wherever you store the token
   const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
   const [editableUser, setEditableUser] = useState({
-    first_Name: user.first_Name || "",
-    last_Name: user.last_Name || "",
-    userName: user.userName || "",
-    email: user.email || "",
-    birthDay: user.birthDay || "",
+  first_Name: user.first_Name || "",  // Ensure it’s never undefined
+  last_Name: user.last_Name || "",    // Ensure it’s never undefined
+  userName: user.userName || "",
+  email: user.email || "",
+  birthDay: user.birthDay || "",
   });
+
+  useEffect(() => {
+    // Update editableUser when the user prop changes
+    setEditableUser({
+      first_Name: user.first_Name || "",
+      last_Name: user.last_Name || "",
+      userName: user.userName || "",
+      email: user.email || "",
+      birthDay: user.birthDay || "",
+    });
+  }, [user]);
+
+  // console.log(editableUser)
   const handleInputChange = (e) => {
     const { name, value } = e.target; // Extract 'name' and 'value' from the input field
     setEditableUser((prevState) => ({
@@ -18,32 +39,80 @@ function UserInfo({user}) {
       [name]: value, // Update only the specific field being edited
     }));
   };
-  
+
   const handleSave = async () => {
-    const url = `https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/update/${editableUser.userName}`; // Endpoint URL
+    const url = `https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/update/${editableUser.userName}`;
+    
     try {
       const response = await fetch(url, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json", // Specify the data type
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}` // Include token in the header
         },
-        body: JSON.stringify(editableUser), // Convert data to JSON
+        body: JSON.stringify(editableUser),
       });
-
+  
       if (!response.ok) {
         throw new Error("Failed to update the profile");
       }
   
       alert("Profile updated successfully!");
-      // console.log("Server Response:", result);
-  
+      
+      // Refetch the updated user data
+      const updatedUserResponse = await fetch(`https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/${editableUser.userName}`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}` // Include token in the header
+        }
+      });
+
+      const updatedUser = await updatedUserResponse.json();
+
+      setUser(updatedUser);
+      setEditableUser(updatedUser);
       setIsEditing(false); // Switch back to view mode
     } catch (error) {
       console.error("Error updating the profile:", error);
       alert("Something went wrong. Please try again.");
     }
+  };
 
-    console.log
+  const deletingUser = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
+  
+    if (!confirmDelete) {
+      return; // Exit if user cancels
+    }
+    console.log("Deleting user with ID:", user.userName);
+    if (!user?._id || !token) {
+      alert("User ID or authentication token is missing.");
+      return;
+    }
+
+    const url = `https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/${user.userName}`;
+
+    try {
+      const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}` // Include token in the header
+        }
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to delete the profile");
+      }
+  
+      alert("Profile deleted successfully!");
+      
+      onLoggedOut();
+
+    } catch (error) {
+      console.error("Error deleting the profile:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -103,18 +172,24 @@ function UserInfo({user}) {
                   onChange={handleInputChange}
                 />
               </Form.Group>
-
+            </Form>
+          </Col>
+          <Row className="justify-content-center">
+            <Col md={6} className="d-flex flex-column align-items-center">
               {isEditing ? (
-                <Button variant="success" onClick={handleSave}>
+                <Button variant="primary" className="w-100" onClick={handleSave}>
                   Save
                 </Button>
               ) : (
-                <Button variant="primary" onClick={() => setIsEditing(true)}>
+                <Button variant="primary" className="w-100" onClick={() => setIsEditing(true)}>
                   Edit Profile
                 </Button>
               )}
-            </Form>
-          </Col>
+              <Button variant="secondary" className="deleteUserBt w-50 mt-2" onClick={() => deletingUser()}>
+                Delete User
+              </Button>
+            </Col>
+          </Row>
         </Row>
       </Container>
     </>
