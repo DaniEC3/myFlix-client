@@ -25,29 +25,38 @@ function FavoriteMovies({user, movies, setUser}) {
         if (!response.ok) {
           throw new Error("Failed to remove movie");
         }
-        return response.text(); // Use text() instead of json()
+        return response.text(); // Logs "Successful" or another server response
       })
-      .then((text) => {
-        console.log("Server response:", text); // Logs "Successful" or whatever the server sends
-  
-        // Manually update the user object in local storage
-        const updatedUser = {
-          ...user,
-          FavoriteMovies: user.FavoriteMovies.filter((fav) => fav !== movieName),
-        };
-  
-        localStorage.setItem("user", JSON.stringify(updatedUser));
+      .then(() => {
+        // Fetch the updated user data
+        return fetch(`https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/${user.userName}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch updated user data");
+        }
+        return response.json(); // Get the updated user data
+      })
+      .then((updatedUser) => {
+        localStorage.setItem("user", JSON.stringify(updatedUser)); // Update local storage
         setUser(updatedUser); // Update state
+        console.log("Updated user data:", updatedUser);
       })
       .catch((error) => {
         console.error("Error removing movie:", error);
       });
-    };
+  };
   
     const favoriteMovies = movies.filter((movie) =>
       user.FavoriteMovies?.includes(movie.id)
     );
-    console.log(movies)
+    
     return (
   
     <Row>

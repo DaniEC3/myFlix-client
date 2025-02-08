@@ -12,7 +12,7 @@ export const ProfileView = ({user, setUser, movies, onLoggedOut,setCurrentMovie,
     setError("You must be logged in to view your profile.");
     return;
   }
-  console.log(user)
+
   if (!token) {
     setError("No token.");
     return;
@@ -38,6 +38,7 @@ export const ProfileView = ({user, setUser, movies, onLoggedOut,setCurrentMovie,
               <FavoriteMovies
               user={user}
               movies={movies}
+              setUser={setUser}
               setCurrentMovie={setCurrentMovie}
               genres={genres}
               directors={directors}

@@ -42,8 +42,6 @@ export const MovieView = ({ user, setUser, token, movies, genres, directors, onB
       if (!response.ok) {
         throw new Error("Failed to add the movie");
       }
-  
-      alert("Movie added");
 
       // Refetch the updated user data
       const updatedUserResponse = await fetch(`https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/${user.userName}`, {
@@ -54,10 +52,8 @@ export const MovieView = ({ user, setUser, token, movies, genres, directors, onB
       });
 
       const updatedUser = await updatedUserResponse.json();
-      console.log(updatedUser)
 
       setUser(updatedUser);
-      console.log(user)
     } catch (error) {
       console.error("Error adding movie:", error);
       alert("Something went wrong. Please try again.");
@@ -80,10 +76,6 @@ export const MovieView = ({ user, setUser, token, movies, genres, directors, onB
   const similarMovies = currentMovie
     ? movies.filter((m) => m.genre === currentMovie.genre && m.id !== currentMovie.id)
     : [];
-
-  const handleMovieClick = (movie) => {
-    setCurrentMovie(movie); // Update the current movie when a similar movie is clicked
-  };
 
   const shuffledSimilarMovies = shuffleArray(similarMovies);
   
@@ -121,7 +113,7 @@ export const MovieView = ({ user, setUser, token, movies, genres, directors, onB
             >Back</button>
           </Link>
           <button onClick={handleAddMovie} className="add-button">
-            {user.FavoriteMovies?.includes(movie._id) ? "Movie added" : "Add movie"}
+            {user.FavoriteMovies?.includes(movie.id) ? "Movie added" : "Add movie"}
           </button>
         </Col>
         <Row>
