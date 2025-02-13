@@ -68,6 +68,7 @@ function UserInfo({user,setUser, onLoggedOut}) {
       });
 
       const updatedUser = await updatedUserResponse.json();
+      localStorage.setItem("user", JSON.stringify(updatedUser));
 
       setUser(updatedUser);
       setEditableUser(updatedUser);

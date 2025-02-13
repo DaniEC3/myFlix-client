@@ -3,17 +3,18 @@ import { Link } from 'react-router-dom';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { MovieCard } from "../movie-card/movie-card";
+import { HorizontalScrolling } from "../horizontal-scrolling/horizontal-scrolling";
 
-function FavoriteMovies({user, movies, setUser}) {
+function FavoriteMovies({ user, movies, setUser, genres,directors }) {
   const removeFav = (movieName) => {
     const token = localStorage.getItem("token"); // Retrieve token for authentication
     const user = JSON.parse(localStorage.getItem("user")); // Retrieve user data
-  
+
     if (!user) {
       console.error("User not found");
       return;
     }
-  
+
     fetch(`https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/${user.userName}/movies/${movieName}`, {
       method: "DELETE",
       headers: {
@@ -52,96 +53,42 @@ function FavoriteMovies({user, movies, setUser}) {
         console.error("Error removing movie:", error);
       });
   };
-  
-    const favoriteMovies = movies.filter((movie) =>
-      user.FavoriteMovies?.includes(movie.id)
-    );
-    
-    return (
-  
+
+  const favoriteMovies = movies.filter((movie) =>
+    user.FavoriteMovies?.includes(movie.id)
+  );
+
+  return (
     <Row>
-      {/* Container with horizontal scrolling  */}
-      <h2 className='favoriteTitle'>Favorite Movies</h2>
-      <Col md={12}  className="scrolling-movies-container ">
+      {/* Container with horizontal scrolling */}
+      <h2 className="favoriteTitle">Favorite Movies</h2>
       {user.FavoriteMovies.length > 0 ? (
-        <div className="scrolling-movies-scroll">
+        <HorizontalScrolling>
           {favoriteMovies.map((movie) => (
-            <Col xs={12} sm={12} md={6} lg={4} key={movie.id} className="scrollingMovieCard">
-               <div key={movie._id}>
-               <img src={movie.imagePath} alt={movie.name} />
-               <Link to={`/movies/${movie.id}`}>
-                 <h4>{movie.name}</h4>
-               </Link>
-               <button
-                variant="secondary"
-                onClick={() => removeFav(movie.name)}
-              >
-                Remove from list
-              </button>
-            </div>
-            
-            
-            
-            
-            {/* <MovieCard 
-            movie={movie} 
-            genres={genres}
-            directors={directors}
-            /> */}
-            </Col>
-            // <div key={movie._id}>
-            //   <img src={movie.imagePath} alt={movie.name} />
-            //   <Link to={`/movies/${movie._id}`}>
-            //     <h4>{movie.name}</h4>
-            //   </Link>
-            //   <button
-            //     variant="secondary"
-            //     onClick={() => removeFav(movie._id)}
-            //   >
-            //     Remove from list
-            //   </button>
-            // </div>
-          ))}
-        </div>
-      ) : (
-        <p className='noMovieText'>You have no favorite movies yet.</p>
-      )}
-        {/* <div className="scrolling-movies-scroll">
-          {favoriteMovies.map((movie) => (
-            <Col xs={12} sm={12} md={6} lg={4} key={movie.id} className="scrollingMovieCard">
-              <MovieCard 
+            <Col xs={12} sm={6} md={4} lg={3} key={movie._id} className="scrollingMovieCard">
+              <MovieCard
               movie={movie} 
-              setCurrentMovie={setCurrentMovie}
               genres={genres}
               directors={directors}
               />
+              <button
+                  variant="secondary"
+                  onClick={() => removeFav(movie.name)}
+                >
+                  Remove from list
+                </button>
             </Col>
           ))}
-        </div> */}
-      </Col>
-    </Row> 
 
-    // <>
-    //   <h2 className='favoriteTitle'>Favorite Movies</h2>
-    //   {favoriteMovies.length > 0 ? (
-    //     favoriteMovies.map((movie) => (
-    //       <div key={movie._id}>
-    //         <img src={movie.imagePath} alt={movie.name} />
-    //         <Link to={`/movies/${movie._id}`}>
-    //           <h4>{movie.name}</h4>
-    //         </Link>
-    //         <button
-    //           variant="secondary"
-    //           onClick={() => removeFav(movie._id)}
-    //         >
-    //           Remove from list
-    //         </button>
-    //       </div>
-    //     ))
-    //   ) : (
-    //     <p>You have no favorite movies yet.</p>
-    //   )}
-    // </>
+        </HorizontalScrolling>
+      ) : (
+        <p>No favorite movies added yet.</p>
+      )}
+    </Row>
+
+
+
+
   );
 }
 

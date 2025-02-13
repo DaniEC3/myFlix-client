@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import './movie-view.scss';
+import { HorizontalScrolling } from "../horizontal-scrolling/horizontal-scrolling";
 
 
 export const MovieView = ({ user, setUser, token, movies, genres, directors, onBackClick }) => {
   const { movieId } = useParams(); // Get movieId from the URL
   const movie = movies.find((b) => b.id === decodeURIComponent(movieId));
-  
+
   // Find genre name by matching movie.genre (ID) with the fetched genres
   const matchedGenre = genres.find((g) => g._id === movie.genre);
 
@@ -29,7 +30,7 @@ export const MovieView = ({ user, setUser, token, movies, genres, directors, onB
 
   const handleAddMovie = async () => {
     const url = `https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/${user.userName}/movies/${movie.name}`;
-    
+
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -38,7 +39,7 @@ export const MovieView = ({ user, setUser, token, movies, genres, directors, onB
           "Authorization": `Bearer ${token}` // Include token in the header
         },
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to add the movie");
       }
@@ -66,7 +67,7 @@ export const MovieView = ({ user, setUser, token, movies, genres, directors, onB
   });
 
   const [currentMovie, setCurrentMovie] = useState(movie);
-  
+
   // Use useEffect to update similar movies whenever currentMovie changes
   useEffect(() => {
     setCurrentMovie(movie); // Update currentMovie whenever movieId changes
@@ -78,14 +79,14 @@ export const MovieView = ({ user, setUser, token, movies, genres, directors, onB
     : [];
 
   const shuffledSimilarMovies = shuffleArray(similarMovies);
-  
+
   return (
     <div>
       <Row>
         <Col className="movie-info mt-5" md={12}>
           <div className="text-center img-movieView">
             <img src={movie.imagePath} alt={movie.name} />
-          </div> 
+          </div>
           <div className="mt-4">
             <span>Name: </span>
             <span>{movie.name}</span>
@@ -107,32 +108,27 @@ export const MovieView = ({ user, setUser, token, movies, genres, directors, onB
             <span>{matchedGenre ? matchedGenre.name : "Unknown"}</span>
           </div>
           <Link to={'/'}>
-            <button onClick={onBackClick} 
-            className="back-button"
-            style={{ cursor: "pointer" }}
+            <button onClick={onBackClick}
+              className="back-button"
+              style={{ cursor: "pointer" }}
             >Back</button>
           </Link>
           <button onClick={handleAddMovie} className="add-button">
             {user.FavoriteMovies?.includes(movie.id) ? "Movie added" : "Add movie"}
           </button>
         </Col>
-        <Row>
-          {/* Container with horizontal scrolling */}
-          <Col md={12} className="scrolling-movies-container">
-            <div className="scrolling-movies-scroll">
-              {shuffledSimilarMovies.map((movie) => (
-                <Col xs={12} sm={12} md={6} lg={4} key={movie.id} className="scrollingMovieCard">
-                  <MovieCard 
-                  movie={movie} 
-                  setCurrentMovie={setCurrentMovie}
-                  genres={genres}
-                  directors={directors}
-                  />
-                </Col>
-              ))}
-            </div>
-          </Col>
-        </Row>
+        <HorizontalScrolling>
+          {shuffledSimilarMovies.map((movie) => (
+            <Col xs={12} sm={12} md={6} lg={4} key={movie.id} className="scrollingMovieCard">
+              <MovieCard
+                movie={movie}
+                setCurrentMovie={setCurrentMovie}
+                genres={genres}
+                directors={directors}
+              />
+            </Col>
+          ))}
+        </HorizontalScrolling>
       </Row>
     </div>
   );
