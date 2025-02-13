@@ -8,9 +8,9 @@ import { HorizontalScrolling } from "../horizontal-scrolling/horizontal-scrollin
 function FavoriteMovies({ user, movies, setUser, genres,directors }) {
   const removeFav = (movieName) => {
     const token = localStorage.getItem("token"); // Retrieve token for authentication
-    const user = JSON.parse(localStorage.getItem("user")); // Retrieve user data
+    const userLocal = JSON.parse(localStorage.getItem("user")); // Retrieve user data
 
-    if (!user) {
+    if (!userLocal) {
       console.error("User not found");
       return;
     }
@@ -53,11 +53,11 @@ function FavoriteMovies({ user, movies, setUser, genres,directors }) {
         console.error("Error removing movie:", error);
       });
   };
-
+  console.log(user)
   const favoriteMovies = movies.filter((movie) =>
     user.FavoriteMovies?.includes(movie.id)
   );
-
+  console.log(favoriteMovies)
   return (
     <Row>
       {/* Container with horizontal scrolling */}
