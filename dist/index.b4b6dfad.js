@@ -46158,8 +46158,8 @@ function UserInfo({ user, setUser, onLoggedOut }) {
             }));
     };
     const handleSave = async ()=>{
-        const url = `https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/update/${editableUser.userName}`;
         try {
+            const url = `https://movies-my-flix-app-60bc918eee2b.herokuapp.com/users/update/${user.userName}`;
             const response = await fetch(url, {
                 method: "PUT",
                 headers: {
