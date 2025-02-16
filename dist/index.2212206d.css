@@ -13165,6 +13165,45 @@ body {
   font-family: Audiowide, sans-serif;
 }
 
+.welcome-card {
+  backdrop-filter: blur(10px);
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  background: #ffffff1a;
+  border: 1px solid #fff3;
+  border-radius: 12px;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 40px;
+  font-family: Inter, sans-serif;
+  transition: transform .3s ease-in-out;
+  box-shadow: 0 4px 10px #0003;
+}
+
+.welcome-card h1, .welcome-card .h1 {
+  color: #cfff5a;
+  text-shadow: 2px 2px 5px #0000004d;
+  font-family: Audiowide, sans-serif;
+  font-size: 2.5rem;
+}
+
+.welcome-card h2, .welcome-card .h2 {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.welcome-card:hover {
+  transform: scale(1.02);
+}
+
+.welcome-card:focus {
+  outline: none;
+}
+
 .img-movieView img {
   background-color: #000;
   border: 4px solid #cfff5a;
@@ -13189,6 +13228,31 @@ body {
   color: inherit !important;
   box-shadow: none !important;
   background-color: #0000 !important;
+}
+
+.search-container {
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.search-container .form-control {
+  width: 100%;
+  padding-right: 30px;
+}
+
+.search-container .clear-button {
+  cursor: pointer;
+  color: #888;
+  background: none;
+  border: none;
+  font-size: 16px;
+  position: absolute;
+  right: 10px;
+}
+
+.search-container .clear-button:hover {
+  color: #333;
 }
 
 .movieCard {
@@ -13241,12 +13305,25 @@ body {
   background-color: #000;
 }
 
+.scrollingContainer {
+  white-space: nowrap;
+  gap: 10px;
+  display: flex;
+  overflow: auto hidden;
+}
+
 .favoriteTitle {
   color: #98cc3d;
 }
 
 .noMovieText {
   color: #fff;
+}
+
+.favoriteNoAdd {
+  color: #fff;
+  text-align: center;
+  margin-top: 10px;
 }
 
 .deleteUserBt {

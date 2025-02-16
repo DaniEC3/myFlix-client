@@ -53,11 +53,11 @@ function FavoriteMovies({ user, movies, setUser, genres,directors }) {
         console.error("Error removing movie:", error);
       });
   };
-  console.log(user)
+
   const favoriteMovies = movies.filter((movie) =>
     user.FavoriteMovies?.includes(movie.id)
   );
-  console.log(favoriteMovies)
+
   return (
     <Row>
       {/* Container with horizontal scrolling */}
@@ -82,7 +82,7 @@ function FavoriteMovies({ user, movies, setUser, genres,directors }) {
 
         </HorizontalScrolling>
       ) : (
-        <p>No favorite movies added yet.</p>
+        <p className='favoriteNoAdd'>No favorite movies added yet.</p>
       )}
     </Row>
 

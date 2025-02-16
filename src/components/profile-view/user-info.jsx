@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 function UserInfo({user,setUser, onLoggedOut}) {
   const navigate = useNavigate();
-  // console.log(user)
   if (!user) {
     return <div>Loading...</div>; // Or another loading state
   }

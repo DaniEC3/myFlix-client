@@ -20,6 +20,14 @@ export const MainView = () => {
   const [movies, setMovies] = useState(storedMovies);
   const [genres, setGenres] = useState([]);
   const [directors, setDirectors] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Filter movies based on search query
+  const filteredMovies = movies.filter((movie) =>
+    movie.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  console.log(filteredMovies)
 
   useEffect(() => {
     if (!token) {
@@ -108,6 +116,8 @@ export const MainView = () => {
     <BrowserRouter>
       <NavigationBar 
       user={user}
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
       onLoggedOut={() => {
         setUser(null);
         setToken(null);
@@ -131,7 +141,7 @@ export const MainView = () => {
                     </Row>
                     <Row>
                     <>
-                      {movies.map((movie) => (
+                      {filteredMovies.map((movie) => (
                         <Col className="mb-4" key={movie.id} md={3}>
                           <MovieCard 
                           movie={movie}
